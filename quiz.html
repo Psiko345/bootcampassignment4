@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css" />
+  <title>Javascript Quiz</title>
+</head>
+<!--Navbar with timer and link to highscores-->
+<header>
+  <nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+      <a class="nav-link" href="/highscores.html">
+        View Highscores
+      </a>
+      <ul class="list-inline">
+        <li class="list-inline-item">Time Left:</li>
+        <!--Timer container? variable loop counting down from x with interval function, minus seconds for error-->
+        <li class="list-inline-item">0</li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!--Main container, two sections (Questions/Answers)-->
+
+<body>
+  <main class="container">
+    <section class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        <form class="block form-horizontal">
+          <h1 class="block-header text-center">Javascript Quiz</label>
+            <p class="text-center">
+              Try to answer the following questions about javascript to the best of your ability! You have 60
+              seconds...but every wrong answer will reduce your time left by 10 seconds. So watch out!
+            </p>
+        </form>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-md-12 text-center">
+        <button class="sumbit-button" id="start-quiz">Start Quiz</button>
+
+      </div>
+
+    </section>
+    <p>Todo Count: <span id="todo-count">0</span></p>
+    <ul id="todo-list"></ul>
+    </div>
+    <script src="./script.js"></script>
+  </main>
+</body>
+
+</html>
