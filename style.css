@@ -6,16 +6,11 @@
 
 body {
   font-family: "Concert One", cursive;
-  font-size: 16px;
+  font-size: 18px;
 }
 
-input {
-  height: 50px;
-  width: 100%;
-  padding: 6px;
-  margin-top: 10px;
-  font-size: 2.4em;
-  border: none;
+h1 {
+  font-size: 24px;
 }
 
 ul {
@@ -24,14 +19,14 @@ ul {
   background-color: white;
 }
 
-li {
+li,
+.nav-link {
   height: 50px;
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 5px;
-  background-color: #ff5d88;
-  color: white;
-  font-size: 1.5em;
+  color: black;
+  font-size: 1.3em;
   line-height: 1.5;
 }
 
@@ -46,22 +41,23 @@ li::after {
   clear: both;
 }
 
-li button {
-  float: right;
+.submit-button {
+  color: white;
+  padding: 2px 1px;
+  text-align: center;
   border: none;
   height: 40px;
   cursor: pointer;
-  background-color: #ff9500;
-  color: white;
-  font-size: 1em;
+  background-color: purple;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 4px;
 }
 
 li button:hover {
   background-color: #febc5d;
 }
 
-.todos {
-  width: 800px;
-  margin: 0 auto;
-  margin-top: 40px;
+#highscores {
+  margin-top: 20%;
 }
