@@ -47,8 +47,10 @@ li::after {
   padding: 2px 1px;
   text-align: center;
   border: none;
-  height: 40px;
-  max-width: 100px;
+  min-width: 50px;
+  min-height: fit-content;
+  max-height: fit-content;
+  max-width: fit-content;
   cursor: pointer;
   background-color: purple;
   font-size: 16px;
@@ -58,6 +60,13 @@ li::after {
 
 li button:hover {
   background-color: #febc5d;
+}
+
+#correctOrIncorrectVisual {
+  color: gray;
+  font-size: larger;
+  border-top: gray;
+  border-radius: 3px;
 }
 
 #highscores {

@@ -1,5 +1,6 @@
 let startQuiz = document.getElementById("start-quiz");
 let timeLeft = document.getElementById("seconds");
+const initialSecondsRemaining = 30;
 
 window.onload = function () {
   changePageType("intro");
@@ -20,17 +21,17 @@ document
   .addEventListener("click", handleSummaryTest);
 
 document
-  .getElementsById("answer1")
-  .addEventListener("click", handleAnswerClicked);
+  .getElementById("answer1")
+  .addEventListener("click", handleAnswer1Clicked);
 document
-  .getElementsById("answer2")
-  .addEventListener("click", handleAnswerClicked);
+  .getElementById("answer2")
+  .addEventListener("click", handleAnswer2Clicked);
 document
-  .getElementsById("answer3")
-  .addEventListener("click", handleAnswerClicked);
+  .getElementById("answer3")
+  .addEventListener("click", handleAnswer3Clicked);
 document
-  .getElementsById("answer4")
-  .addEventListener("click", handleAnswerClicked);
+  .getElementById("answer4")
+  .addEventListener("click", handleAnswer4Clicked);
 
 function handleQuizButtonTest(e) {
   e.preventDefault();
@@ -56,7 +57,7 @@ function handleStartQuizClicked(e) {
   e.preventDefault();
   changePageType("quiz");
   showQuestion(0);
-  applicationGlobals.secondsRemaining = 10;
+  applicationGlobals.secondsRemaining = initialSecondsRemaining;
   applicationGlobals.secondsRemainingCallback = setInterval(function () {
     applicationGlobals.secondsRemaining =
       applicationGlobals.secondsRemaining - 1;
@@ -92,7 +93,7 @@ function showQuestion(questionIndex) {
 
 let applicationGlobals = {
   pageType: "intro", // / "highscore" / "quiz"
-  secondsRemaining: 10,
+  secondsRemaining: initialSecondsRemaining,
   currentQuestion: 0,
   secondsRemainingCallback: null,
   highScores: [
@@ -107,11 +108,49 @@ let applicationGlobals = {
   ],
 };
 
-function handleAnswerClicked(e) {
-  e.preventDefault();
-  if (ALL_QUESTIONS.possible_answers == rightAnswer) {
+function handleAnswerClicked(answer) {
+  if (ALL_QUESTIONS[applicationGlobals.currentQuestion].rightAnswer == answer) {
+    showCorrectAnswerVisual();
     showQuestion(applicationGlobals.currentQuestion + 1);
   }
+
+  // if worng answer, next question but -10 to time
+  // display correct/incorrect visual
+  else {
+    showIncorrectAnswerVisual();
+    applicationGlobals.secondsRemaining =
+      applicationGlobals.secondsRemaining - 10;
+    showQuestion(applicationGlobals.currentQuestion + 1);
+  }
+}
+
+function showCorrectAnswerVisual() {
+  document.getElementById("correctOrIncorrectVisual").textContent = "CORRECT!";
+}
+
+function showIncorrectAnswerVisual() {
+  document.getElementById("correctOrIncorrectVisual").textContent =
+    "INCORRECT!";
+}
+
+function handleAnswer1Clicked(e) {
+  e.preventDefault();
+  handleAnswerClicked(1);
+}
+
+function handleAnswer2Clicked(e) {
+  e.preventDefault();
+  handleAnswerClicked(2);
+}
+
+function handleAnswer3Clicked(e) {
+  e.preventDefault();
+  handleAnswerClicked(3);
+}
+
+function handleAnswer4Clicked(e) {
+  e.preventDefault();
+  handleAnswerClicked(4);
 }
 
 let ALL_QUESTIONS = [
@@ -121,8 +160,18 @@ let ALL_QUESTIONS = [
     possible_answers: ["string", "alert", "bool", "datetime"],
   },
   {
-    questionText: "Some other question?",
+    questionText: "Which is higher?",
     right_answer: 1,
-    possible_answers: ["string", "alert", "bool", "datetime"],
+    possible_answers: ["1", "2", "3", "4"],
+  },
+  {
+    questionText: "How phat yo momma?",
+    rightAnswer: 4,
+    possible_answers: [
+      "ham planet",
+      "grape looking",
+      "Wears a MAGA hat",
+      "You possess admirable heft, girl",
+    ],
   },
 ];
