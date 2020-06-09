@@ -21,7 +21,7 @@
       </a>
       <ul class="list-inline">
         <li class="list-inline-item">Time Left:</li>
-        <li class="list-inline-item">0</li>
+        <li class="list-inline-item" id="secondsText"></li>
       </ul>
     </div>
   </nav>
@@ -31,27 +31,50 @@
 
 <body>
   <main class="container">
-    <section class="row">
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-8">
-        <form class="block form-horizontal">
-          <h1 class="block-header text-center">Javascript Quiz</h1>
-          <p class="text-center">
-            Try to answer the following questions about javascript to the best of your ability! You have 60
-            seconds...but every wrong answer will reduce your time left by 10 seconds. So watch out!
-          </p>
-          <br>
+    <div id="intro">
+      <section class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <form class="block form-horizontal">
+            <h1 class="block-header text-center">Javascript Quiz</h1>
+            <p class="text-center">
+              Try to answer the following questions about javascript to the best of your ability! You have 60
+              seconds...but every wrong answer will reduce your time left by 10 seconds. So watch out!
+            </p>
 
-          <section class="row">
-            <div class="col-md-12 text-center">
-              <button class="submit-button" id="start-quiz">Start Quiz</button>
-            </div>
-          </section>
-        </form>
-      </div>
-      <div class="col-md-2"></div>
-    </section>
+            <br>
+
+            <section class="row">
+              <div class="col-md-12 text-center">
+                <button class="submit-button" id="start-quiz">Start Quiz</button>
+              </div>
+            </section>
+          </form>
+        </div>
+        <div class="col-md-2"></div>
+      </section>
+    </div>
+    <div id="quiz">
+      <p id="questionText">This is the question</p>
+      <ol>
+        <li id="answer1" class="answer-button">answer 1</li>
+        <li id="answer2" class="answer-button">answer 2</li>
+        <li id="answer3" class="answer-button">answer 3</li>
+        <li id="answer4" class="answer-button">answer 4</li>
+      </ol>
+      <button class="submit-button" id="quizbuttontest">Next</button>
+    </div>
+    <div id="endpage">
+      <p>This is the summary</p>
+      <button class="submit-button" id="summarytest">summary</button>
+    </div>
+    <div id="highscore">
+      <p>This is the highscore</p>
+      <button class="submit-button" id="highscoretest">highscore</button>
+    </div>
+
+
     <script src="./script.js"></script>
   </main>
 </body>

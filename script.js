@@ -1,63 +1,128 @@
-var todoInput = document.querySelector("#todo-text");
-var todoForm = document.querySelector("#todo-form");
-var todoList = document.querySelector("#todo-list");
-var todoCountSpan = document.querySelector("#todo-count");
+let startQuiz = document.getElementById("start-quiz");
+let timeLeft = document.getElementById("seconds");
 
-var todos = ["Learn HTML", "Learn CSS", "Learn JavaScript"];
+window.onload = function () {
+  changePageType("intro");
+};
 
-renderTodos();
+startQuiz.addEventListener("click", handleStartQuizClicked);
 
-function renderTodos() {
-  // Clear todoList element and update todoCountSpan
-  todoList.innerHTML = "";
-  todoCountSpan.textContent = todos.length;
+document
+  .getElementById("quizbuttontest")
+  .addEventListener("click", handleQuizButtonTest);
 
-  // Render a new li for each todo
-  for (var i = 0; i < todos.length; i++) {
-    var todo = todos[i];
+document
+  .getElementById("highscoretest")
+  .addEventListener("click", handleHighscoreTest);
 
-    var li = document.createElement("li");
-    li.textContent = todo;
-    li.setAttribute("data-index", i);
+document
+  .getElementById("summarytest")
+  .addEventListener("click", handleSummaryTest);
 
-    var button = document.createElement("button");
-    button.textContent = "Complete";
+document
+  .getElementsById("answer1")
+  .addEventListener("click", handleAnswerClicked);
+document
+  .getElementsById("answer2")
+  .addEventListener("click", handleAnswerClicked);
+document
+  .getElementsById("answer3")
+  .addEventListener("click", handleAnswerClicked);
+document
+  .getElementsById("answer4")
+  .addEventListener("click", handleAnswerClicked);
 
-    li.appendChild(button);
-    todoList.appendChild(li);
+function handleQuizButtonTest(e) {
+  e.preventDefault();
+  if (applicationGlobals.currentQuestion == ALL_QUESTIONS.length - 1) {
+    clearInterval(applicationGlobals.secondsRemainingCallback);
+    changePageType("endpage");
+  } else {
+    showQuestion(applicationGlobals.currentQuestion + 1);
   }
 }
 
-// When form is submitted...
-todoForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+function handleSummaryTest(e) {
+  e.preventDefault();
+  changePageType("highscore");
+}
 
-  var todoText = todoInput.value.trim();
+function handleHighscoreTest(e) {
+  e.preventDefault();
+  changePageType("intro");
+}
 
-  // Return from function early if submitted todoText is blank
-  if (todoText === "") {
-    return;
+function handleStartQuizClicked(e) {
+  e.preventDefault();
+  changePageType("quiz");
+  showQuestion(0);
+  applicationGlobals.secondsRemaining = 10;
+  applicationGlobals.secondsRemainingCallback = setInterval(function () {
+    applicationGlobals.secondsRemaining =
+      applicationGlobals.secondsRemaining - 1;
+    document.getElementById("secondsText").textContent =
+      applicationGlobals.secondsRemaining;
+    if (applicationGlobals.secondsRemaining == 0) {
+      clearInterval(applicationGlobals.secondsRemainingCallback);
+      changePageType("endpage");
+    }
+  }, 1000);
+}
+
+function changePageType(newPageType) {
+  document.getElementById("intro").style.display =
+    newPageType == "intro" ? "BLOCK" : "NONE";
+  document.getElementById("quiz").style.display =
+    newPageType == "quiz" ? "BLOCK" : "NONE";
+  document.getElementById("highscore").style.display =
+    newPageType == "highscore" ? "BLOCK" : "NONE";
+  document.getElementById("endpage").style.display =
+    newPageType == "endpage" ? "BLOCK" : "NONE";
+}
+
+function showQuestion(questionIndex) {
+  applicationGlobals.currentQuestion = questionIndex;
+  let question = ALL_QUESTIONS[questionIndex];
+  document.getElementById("questionText").textContent = question.questionText;
+  document.getElementById("answer1").textContent = question.possible_answers[0];
+  document.getElementById("answer2").textContent = question.possible_answers[1];
+  document.getElementById("answer3").textContent = question.possible_answers[2];
+  document.getElementById("answer4").textContent = question.possible_answers[3];
+}
+
+let applicationGlobals = {
+  pageType: "intro", // / "highscore" / "quiz"
+  secondsRemaining: 10,
+  currentQuestion: 0,
+  secondsRemainingCallback: null,
+  highScores: [
+    {
+      who: "JPP",
+      score: 99,
+    },
+    {
+      who: "JP",
+      score: 100,
+    },
+  ],
+};
+
+function handleAnswerClicked(e) {
+  e.preventDefault();
+  if (ALL_QUESTIONS.possible_answers == rightAnswer) {
+    showQuestion(applicationGlobals.currentQuestion + 1);
   }
+}
 
-  // Add new todoText to todos array, clear the input
-  todos.push(todoText);
-  todoInput.value = "";
-
-  // Re-render the list
-  renderTodos();
-});
-
-// When a element inside of the todoList is clicked...
-todoList.addEventListener("click", function (event) {
-  var element = event.target;
-
-  // If that element is a button...
-  if (element.matches("button") === true) {
-    // Get its data-index value and remove the todo element from the list
-    var index = element.parentElement.getAttribute("data-index");
-    todos.splice(index, 1);
-
-    // Re-render the list
-    renderTodos();
-  }
-});
+let ALL_QUESTIONS = [
+  {
+    questionText: "Which type is not simple?",
+    rightAnswer: 3,
+    possible_answers: ["string", "alert", "bool", "datetime"],
+  },
+  {
+    questionText: "Some other question?",
+    right_answer: 1,
+    possible_answers: ["string", "alert", "bool", "datetime"],
+  },
+];

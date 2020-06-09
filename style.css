@@ -41,12 +41,14 @@ li::after {
   clear: both;
 }
 
-.submit-button {
+.submit-button,
+.answer-button {
   color: white;
   padding: 2px 1px;
   text-align: center;
   border: none;
   height: 40px;
+  max-width: 100px;
   cursor: pointer;
   background-color: purple;
   font-size: 16px;
