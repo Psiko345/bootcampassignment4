@@ -89,6 +89,7 @@ function showQuestion(questionIndex) {
   document.getElementById("answer2").textContent = question.possible_answers[1];
   document.getElementById("answer3").textContent = question.possible_answers[2];
   document.getElementById("answer4").textContent = question.possible_answers[3];
+  clearAnswerVisual();
 }
 
 let applicationGlobals = {
@@ -111,16 +112,16 @@ let applicationGlobals = {
 function handleAnswerClicked(answer) {
   if (ALL_QUESTIONS[applicationGlobals.currentQuestion].rightAnswer == answer) {
     showCorrectAnswerVisual();
-    showQuestion(applicationGlobals.currentQuestion + 1);
-  }
-
-  // if worng answer, next question but -10 to time
-  // display correct/incorrect visual
-  else {
+    setTimeout(function () {
+      showQuestion(applicationGlobals.currentQuestion + 1);
+    }, 1500);
+  } else {
     showIncorrectAnswerVisual();
     applicationGlobals.secondsRemaining =
       applicationGlobals.secondsRemaining - 10;
-    showQuestion(applicationGlobals.currentQuestion + 1);
+    setTimeout(function () {
+      showQuestion(applicationGlobals.currentQuestion + 1);
+    }, 1500);
   }
 }
 
@@ -131,6 +132,10 @@ function showCorrectAnswerVisual() {
 function showIncorrectAnswerVisual() {
   document.getElementById("correctOrIncorrectVisual").textContent =
     "INCORRECT!";
+}
+
+function clearAnswerVisual() {
+  document.getElementById("correctOrIncorrectVisual").textContent = " ";
 }
 
 function handleAnswer1Clicked(e) {
