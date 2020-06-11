@@ -83,6 +83,11 @@ function changePageType(newPageType) {
 
 function showQuestion(questionIndex) {
   applicationGlobals.currentQuestion = questionIndex;
+
+  if (applicationGlobals.currentQuestion === ALL_QUESTIONS.length) {
+    changePageType("endpage");
+  }
+
   let question = ALL_QUESTIONS[questionIndex];
   document.getElementById("questionText").textContent = question.questionText;
   document.getElementById("answer1").textContent = question.possible_answers[0];
@@ -90,9 +95,6 @@ function showQuestion(questionIndex) {
   document.getElementById("answer3").textContent = question.possible_answers[2];
   document.getElementById("answer4").textContent = question.possible_answers[3];
   clearAnswerVisual();
-  if (applicationGlobals.currentQuestion == ALL_QUESTIONS.length) {
-    changePageType("endpage");
-  }
 }
 
 let applicationGlobals = {
