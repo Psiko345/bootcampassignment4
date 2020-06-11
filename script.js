@@ -17,8 +17,8 @@ document
   .addEventListener("click", handleHighscoreTest);
 
 document
-  .getElementById("summarytest")
-  .addEventListener("click", handleSummaryTest);
+  .getElementById("endpagetest")
+  .addEventListener("click", handleEndpageTest);
 
 document
   .getElementById("answer1")
@@ -43,7 +43,7 @@ function handleQuizButtonTest(e) {
   }
 }
 
-function handleSummaryTest(e) {
+function handleEndpageTest(e) {
   e.preventDefault();
   changePageType("highscore");
 }
@@ -90,6 +90,9 @@ function showQuestion(questionIndex) {
   document.getElementById("answer3").textContent = question.possible_answers[2];
   document.getElementById("answer4").textContent = question.possible_answers[3];
   clearAnswerVisual();
+  if (applicationGlobals.currentQuestion == ALL_QUESTIONS.length) {
+    changePageType("endpage");
+  }
 }
 
 let applicationGlobals = {
@@ -166,8 +169,8 @@ let ALL_QUESTIONS = [
   },
   {
     questionText: "Which is higher?",
-    right_answer: 1,
-    possible_answers: ["1", "2", "3", "4"],
+    rightAnswer: 1,
+    possible_answers: ["One", "Two", "Three", "Four"],
   },
   {
     questionText: "How phat yo momma?",
