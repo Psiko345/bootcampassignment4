@@ -17,10 +17,6 @@ document
   .addEventListener("click", handleHighscoreTest);
 
 document
-  .getElementById("endpagetest")
-  .addEventListener("click", handleEndpageTest);
-
-document
   .getElementById("answer1")
   .addEventListener("click", handleAnswer1Clicked);
 document
@@ -32,6 +28,9 @@ document
 document
   .getElementById("answer4")
   .addEventListener("click", handleAnswer4Clicked);
+document
+  .getElementById("saveHighScoreBtn")
+  .addEventListener("click", handleSaveScoreAndInitials);
 
 function handleQuizButtonTest(e) {
   e.preventDefault();
@@ -72,9 +71,28 @@ function handleStartQuizClicked(e) {
 
 function handleQuizFinished() {
   clearInterval(applicationGlobals.secondsRemainingCallback);
-  let currentScore = JSON.stringify(applicationGlobals.secondsRemaining);
+  let currentScore = applicationGlobals.secondsRemaining;
   console.log(currentScore);
   document.getElementById("currentScoreDisplayBox").textContent = currentScore;
+}
+
+function handleSaveScoreAndInitials() {
+  let initialsEle = document.getElementById("initialsInput").value;
+  let scoreEle = applicationGlobals.secondsRemaining;
+  let highScoreRecord = { initials: initialsEle, score: scoreEle };
+  console.log(highScoreRecord);
+
+  // Gets list of historicla/past scores from localstorage
+  let highScores = [];
+  let highScoresAsString = localStorage.getItem("highscores");
+  if (highScoresAsString != null) {
+    highScores = JSON.parse(highScoresAsString);
+  }
+  //  Puts new score into past scores
+  highScores.push(highScoreRecord);
+  console.log(highScores);
+  // Puts past scores + new score back into localstorage as a string
+  localStorage.setItem("highscores", JSON.stringify(highScores));
 }
 
 function changePageType(newPageType) {
@@ -94,6 +112,7 @@ function showQuestion(questionIndex) {
   if (applicationGlobals.currentQuestion === ALL_QUESTIONS.length) {
     changePageType("endpage");
     handleQuizFinished();
+    return;
   }
 
   let question = ALL_QUESTIONS[questionIndex];
@@ -168,22 +187,6 @@ function handleAnswer3Clicked(e) {
 function handleAnswer4Clicked(e) {
   e.preventDefault();
   handleAnswerClicked(4);
-}
-
-/* How to get initals from form and saved with score
-  1. eventlistener on form box for when 'enter' key is released
-  2. when released, combine with score string and save to localstorage
-  3. 
-
-*/
-
-document
-  .getElementById("saveHighScoreBtn")
-  .addEventListener("click", handleSaveScoreAndInitials);
-
-function handleSaveScoreAndInitials() {
-  let currentHighscore = JSON.stringify("initialsInput" + currentScore);
-  console.log(currentHighscore);
 }
 
 let ALL_QUESTIONS = [
