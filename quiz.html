@@ -79,15 +79,19 @@
       <button class="submit-button" id="quizbuttontest">Next</button>
     </div>
     <div id="endpage">
-      <h2>Congratulations! You finished! Enter your initials below and click 'Finish' to save your score!</h2>
+      <h2 id="endpageMessage">Congratulations! You finished! Enter your initials below and click 'Finish' to save your
+        score!</h2>
       <form>
         <div class="form">
-          <label for="initials">Your initials here!</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Enter your initials">
+          <input id="initialsInput" placeholder="Enter your initials">
+          <br>
+          <label id="yourScoreWasBox">Your score was:</label>
+          <h3 id="currentScoreDisplayBox">
+            TEST
+          </h3>
         </div>
       </form>
-      <button class="submit-button" id="endpagetest">Endpage</button>
+      <button class="submit-button" id="saveHighScoreBtn">Save Highscore</button>
     </div>
     <div id="highscore">
       <p>This is the highscore</p>

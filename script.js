@@ -70,6 +70,13 @@ function handleStartQuizClicked(e) {
   }, 1000);
 }
 
+function handleQuizFinished() {
+  clearInterval(applicationGlobals.secondsRemainingCallback);
+  let currentScore = JSON.stringify(applicationGlobals.secondsRemaining);
+  console.log(currentScore);
+  document.getElementById("currentScoreDisplayBox").textContent = currentScore;
+}
+
 function changePageType(newPageType) {
   document.getElementById("intro").style.display =
     newPageType == "intro" ? "BLOCK" : "NONE";
@@ -86,6 +93,7 @@ function showQuestion(questionIndex) {
 
   if (applicationGlobals.currentQuestion === ALL_QUESTIONS.length) {
     changePageType("endpage");
+    handleQuizFinished();
   }
 
   let question = ALL_QUESTIONS[questionIndex];
@@ -98,7 +106,6 @@ function showQuestion(questionIndex) {
 }
 
 let applicationGlobals = {
-  pageType: "intro", // / "highscore" / "quiz"
   secondsRemaining: initialSecondsRemaining,
   currentQuestion: 0,
   secondsRemainingCallback: null,
@@ -119,14 +126,14 @@ function handleAnswerClicked(answer) {
     showCorrectAnswerVisual();
     setTimeout(function () {
       showQuestion(applicationGlobals.currentQuestion + 1);
-    }, 1500);
+    }, 700);
   } else {
     showIncorrectAnswerVisual();
     applicationGlobals.secondsRemaining =
       applicationGlobals.secondsRemaining - 10;
     setTimeout(function () {
       showQuestion(applicationGlobals.currentQuestion + 1);
-    }, 1500);
+    }, 700);
   }
 }
 
@@ -161,6 +168,22 @@ function handleAnswer3Clicked(e) {
 function handleAnswer4Clicked(e) {
   e.preventDefault();
   handleAnswerClicked(4);
+}
+
+/* How to get initals from form and saved with score
+  1. eventlistener on form box for when 'enter' key is released
+  2. when released, combine with score string and save to localstorage
+  3. 
+
+*/
+
+document
+  .getElementById("saveHighScoreBtn")
+  .addEventListener("click", handleSaveScoreAndInitials);
+
+function handleSaveScoreAndInitials() {
+  let currentHighscore = JSON.stringify("initialsInput" + currentScore);
+  console.log(currentHighscore);
 }
 
 let ALL_QUESTIONS = [

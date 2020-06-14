@@ -69,6 +69,10 @@ li button:hover {
   border-radius: 3px;
 }
 
+#endpage {
+  text-align: center;
+}
+
 #highscores {
   margin-top: 20%;
 }
