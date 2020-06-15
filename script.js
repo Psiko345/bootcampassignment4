@@ -1,6 +1,6 @@
 let startQuiz = document.getElementById("start-quiz");
 let timeLeft = document.getElementById("seconds");
-const initialSecondsRemaining = 30;
+const initialSecondsRemaining = 60;
 
 window.onload = function () {
   changePageType("intro");
@@ -11,11 +11,6 @@ startQuiz.addEventListener("click", handleStartQuizClicked);
 document
   .getElementById("quizbuttontest")
   .addEventListener("click", handleQuizButtonTest);
-
-document
-  .getElementById("highscoretest")
-  .addEventListener("click", handleHighscoreTest);
-
 document
   .getElementById("answer1")
   .addEventListener("click", handleAnswer1Clicked);
@@ -40,16 +35,6 @@ function handleQuizButtonTest(e) {
   } else {
     showQuestion(applicationGlobals.currentQuestion + 1);
   }
-}
-
-function handleEndpageTest(e) {
-  e.preventDefault();
-  changePageType("highscore");
-}
-
-function handleHighscoreTest(e) {
-  e.preventDefault();
-  changePageType("intro");
 }
 
 function handleStartQuizClicked(e) {
@@ -93,6 +78,7 @@ function handleSaveScoreAndInitials() {
   console.log(highScores);
   // Puts past scores + new score back into localstorage as a string
   localStorage.setItem("highscores", JSON.stringify(highScores));
+  changePageType("intro");
 }
 
 function changePageType(newPageType) {
@@ -100,8 +86,6 @@ function changePageType(newPageType) {
     newPageType == "intro" ? "BLOCK" : "NONE";
   document.getElementById("quiz").style.display =
     newPageType == "quiz" ? "BLOCK" : "NONE";
-  document.getElementById("highscore").style.display =
-    newPageType == "highscore" ? "BLOCK" : "NONE";
   document.getElementById("endpage").style.display =
     newPageType == "endpage" ? "BLOCK" : "NONE";
 }
@@ -128,16 +112,6 @@ let applicationGlobals = {
   secondsRemaining: initialSecondsRemaining,
   currentQuestion: 0,
   secondsRemainingCallback: null,
-  highScores: [
-    {
-      who: "JPP",
-      score: 99,
-    },
-    {
-      who: "JP",
-      score: 100,
-    },
-  ],
 };
 
 function handleAnswerClicked(answer) {
